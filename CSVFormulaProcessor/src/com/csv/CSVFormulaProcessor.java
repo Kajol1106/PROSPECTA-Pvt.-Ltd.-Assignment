@@ -9,9 +9,10 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class CSVFormulaProcessor {
-
+	
 	public static void main(String[] args) {
-    	System.out.println("Just for test");
+		System.out.println("Just for test");
+		
         try {
         	CSVFormulaProcessor evaluator = new CSVFormulaProcessor();
             evaluator.loadCSV("C:\\Users\\kajol\\Desktop\\Refresher Course\\CSVFormulaProcessor\\src\\com\\csv\\input.csv");
@@ -20,9 +21,9 @@ public class CSVFormulaProcessor {
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
+	}
 	
-	Map<String, Cell> cells = new HashMap<>();
+	private Map<String, Cell> cells = new HashMap<>();
 	
 	//parse the csv file and stores the data in a map
 	public void loadCSV(String filePath) throws IOException {
@@ -45,7 +46,7 @@ public class CSVFormulaProcessor {
 	}
 	
 	private int evaluateFormula(String formula) {
-        formula = formula.substring(1); // Remove '='
+		formula = formula.substring(1); // Remove '='
 
         int result = 0;
         char operation = '+';
@@ -89,22 +90,22 @@ public class CSVFormulaProcessor {
             }
         }
         return result;
-    }
+	}
 	
 	//Resolves the value of each cell
-    public void resolveCellValues() {
-        for (String cellName : cells.keySet()) {
+	public void resolveCellValues() {
+		for (String cellName : cells.keySet()) {
             Cell cell = cells.get(cellName);
             if (cell.isFormula()) {
                 int value = evaluateFormula(cell.getValue());
                 cell.setValue(String.valueOf(value));
             }
         }
-    }
-
-    //Saves the final CSV output
+	}
+    
+    //save the final CSV output
     public void saveCSV(String outputPath) throws IOException {
-        BufferedWriter bw = new BufferedWriter(new FileWriter(outputPath));
+    	BufferedWriter bw = new BufferedWriter(new FileWriter(outputPath));
 
         int rowCount = cells.keySet().stream().mapToInt(s -> Integer.parseInt(s.substring(1))).max().orElse(1);
         int colCount = cells.keySet().stream().mapToInt(s -> s.charAt(0) - 'A' + 1).max().orElse(1);
@@ -121,6 +122,5 @@ public class CSVFormulaProcessor {
         }
         bw.close();
     }
-
 
 }
