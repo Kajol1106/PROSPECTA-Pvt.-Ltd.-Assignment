@@ -30,9 +30,9 @@ public class ProductServiceImpl implements ProductService {
 	@Override
 	public List<Product> getProductsByCategory(String category) {
 		
-		String url = FAKE_STORE_API + "category/" + category;
+	    String url = FAKE_STORE_API + "category/" + category;
 		
-		try {
+	    try {
             ResponseEntity<Product[]> response = restTemplate.getForEntity(url, Product[].class);
             Product[] products = response.getBody();
 
@@ -50,10 +50,10 @@ public class ProductServiceImpl implements ProductService {
 	}
 	
 	//to add the product
-	@Override
-	public Product addProduct(Product product) {
+    @Override
+    public Product addProduct(Product product) {
 		
-		// If the rating is not provided set a default value
+	    // If the rating is not provided set a default value
         if (product.getRating() == null) {
             product.setRating(new Rating(0.0, 0));
         } else {
@@ -76,7 +76,7 @@ public class ProductServiceImpl implements ProductService {
         }
     }
 	
-	private void validateRating(Rating rating) {
+    private void validateRating(Rating rating) {
         if (rating.getRate() < 0.0 || rating.getRate() > 5.0) {
             throw new InvalidProductException("Product rating must be between 0.0 and 5.0.");
         }

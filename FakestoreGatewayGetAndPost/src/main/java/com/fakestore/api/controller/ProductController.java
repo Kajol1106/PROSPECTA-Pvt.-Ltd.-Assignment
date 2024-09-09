@@ -19,7 +19,7 @@ import com.fakestore.api.service.ProductService;
 @RequestMapping("/api/products")
 public class ProductController {
 
-	@Autowired
+    @Autowired
     private ProductService productService;
 
     @GetMapping("/category/{category}")

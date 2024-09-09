@@ -2,7 +2,7 @@ package com.fakestore.api.model;
 
 public class Product {
 
-	private Long id;
+    private Long id;
     private String title;
     private String description;
     private Double price;
