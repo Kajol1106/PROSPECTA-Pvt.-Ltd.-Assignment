@@ -2,7 +2,7 @@ package com.fakestore.api.model;
 
 public class Rating {
 
-	private Double rate;
+    private Double rate;
     private Integer count;
     
 	public Rating(Double rate, Integer count) {
