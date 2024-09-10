@@ -1,0 +1,46 @@
+Question 3: What are the key things you would consider when creating/consuming an API to ensure that it is secure and reliable?
+Ans. ===============================
+1. Validating Input sent by the user before persisting in our database. We can make use of validation API in java.
+2. Using strong Authentication and Authorisation, this ensures the person  with right authority can access resources. 
+	We can make use Spring Security which provides built in strong security , we can add this security in our application 
+	by configuring it and can use different mechanism like OAuth2.0 with client id connect.
+3. Exposing only limited data which is necessary.  Sometimes some API contains password and other information that 
+	need not to be shared.
+4. Avoid long wait times with timeouts and implements retries with exponential backoff
+5. Provide meaningful and informative error responses and log issues for debugging.
+6. Clearly document our API with tools like swagger to make it easy for consumers to use.
+
+============================================================================================================
+
+Theoretical Challenge
+Suppose you have a CSV file with the data below.
+A1: 5, A2: 7, A3: 9, B1: 3, B2: 8, B3: =4+5, C1: =5+A1, C2: =A2+B2, C3: =C2+B3I want a program that will take the CSV 
+input above and produce CSV output with the results. If it is a value, then return a value. If it is a formula then 
+calculate the formula and return the value of that formula.
+
+1.	How will you tackle the challenge above?
+Ans. =================
+To solve the challenge , We can covert CSV input into a structured format such as a 2D array . 
+Then, we can loop through the cells and check if it contains a formula or a value. If it is a value we can return the 
+value and  If it is a formula we can calculate it by  using a formula parser and store the result.  Finally, 
+I would write the calculated values into a new CSV file.
+
+2.	What type of errors you would you check for?
+Ans. ================
+Some errors that I would check for :
+1. Handle Circular References : A circular referenc occurs when two or more cells depend on each other, causing an 
+   infinite loop for ex., A1 = B1+1 and B1=A1+1. So, we need to handle circular references.
+2. Syntax Error : Where the formula syntax is incorrect handle that cases. For ex., missing operators, mismatched 
+   parentheses.
+3. Handle division by zero errors gracefully for ex., A1/0
+4. Ensure that formulas are only applied to numerical values, not to strings or other non numeric types ex., “text”+1
+5. Check if formula references a non-existent cell for ex., D1+5 when column D doesn’t exist.
+
+
+3.	How might a user break your code?
+Ans. =================
+Following ways user can break our code :
+By inputting invalid CSV format : not separating with commas properly 
+By using unsupported functions or formulas
+By using incorrect cell references in formulas
+By using providing invalid data types  : non-numeric values in cells that are expected to contain numbers
