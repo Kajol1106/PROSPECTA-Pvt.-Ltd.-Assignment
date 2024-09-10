@@ -40,7 +40,7 @@ Some errors that I would check for :
 3.	How might a user break your code?
 Ans. =================
 Following ways user can break our code :
-By inputting invalid CSV format : not separating with commas properly 
-By using unsupported functions or formulas
-By using incorrect cell references in formulas
-By using providing invalid data types  : non-numeric values in cells that are expected to contain numbers
+1. By inputting invalid CSV format : not separating with commas properly 
+2. By using unsupported functions or formulas
+3. By using incorrect cell references in formulas
+4. By using providing invalid data types  : non-numeric values in cells that are expected to contain numbers
