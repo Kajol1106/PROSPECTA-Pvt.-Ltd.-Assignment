@@ -14,10 +14,17 @@ public class CSVFormulaProcessor {
 		System.out.println("Just for test");
 
 		try {
+			//created the instance of CSVFormulaProcessor
 			CSVFormulaProcessor evaluator = new CSVFormulaProcessor();
+
+			//to load the CSV file and store the data
 			evaluator.loadCSV(
 					"C:\\Users\\kajol\\Desktop\\Refresher Course\\CSVFormulaProcessor\\src\\com\\csv\\input.csv");
+			
+			//to evaluate the formula
 			evaluator.resolveCellValues();
+
+			//to write the result in a new CSV file
 			evaluator.saveCSV(
 					"C:\\Users\\kajol\\Desktop\\Refresher Course\\CSVFormulaProcessor\\src\\com\\csv\\output.csv");
 		} catch (IOException e) {
@@ -28,6 +35,10 @@ public class CSVFormulaProcessor {
 	private Map<String, Cell> cells = new HashMap<>();
 
 	// parse the csv file and stores the data in a map
+	//this will reads the csv file line by line using BufferedReader
+	//each line split by "," to separate the values
+	//each value is stored in Map called cess with the key is the cell name ex., A1, B1
+	// and the value is Cell object that holds the content ex., number or formula
 	public void loadCSV(String filePath) throws IOException {
 		BufferedReader br = new BufferedReader(new FileReader(filePath));
 		String line;
@@ -47,6 +58,12 @@ public class CSVFormulaProcessor {
 		br.close();
 	}
 
+	//If cell contains a formula which is starts with =, this method will use
+	//It removes the = sign and splits the formula into parts(token)
+	//handling basic math operations +, -, *, /
+	//If formula refers to another cell eg., A1 it looks up the value of that cell
+	//If that cell also contains formula, it will use recursion to evaluates the value
+	//and it will calculates the final result for that formula and return it
 	private int evaluateFormula(String formula) {
 		formula = formula.substring(1); // Remove '='
 
@@ -95,6 +112,10 @@ public class CSVFormulaProcessor {
 	}
 
 	// Resolves the value of each cell
+	//this will goes through each cell in the cells Map
+	//It will check the cell contains fomula or not using isFormula() which i defined in Cell class
+	//it uses the evaluateFormula() method to get final value and replaces the 
+	//formula with result
 	public void resolveCellValues() {
 		for (String cellName : cells.keySet()) {
 			Cell cell = cells.get(cellName);
@@ -106,6 +127,9 @@ public class CSVFormulaProcessor {
 	}
 
 	// save the final CSV output
+	//once all the cell values are resolved this method will writes the final data in new CSV file
+	//It will organize the cells back into rows and columns
+	//writing each value in correct position and seprating them by commas
 	public void saveCSV(String outputPath) throws IOException {
 		BufferedWriter bw = new BufferedWriter(new FileWriter(outputPath));
 
